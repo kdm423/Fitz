@@ -1,0 +1,15 @@
+{
+  "name": "contestpackage",
+  "version": "1.0.0",
+  "description": "Packages required for Contest Function of Fitz Web App",
+  "main": "ContestIndex.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Katarina Marsteller",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
