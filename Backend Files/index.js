@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
-import "./connect.js";
+import "./src/connect.js";
 import { v4 } from "uuid";
-import { registerUser, loginUser, getUsers, deleteUser } from "./services/UserService.js"
-import { createPost, getPosts, getUserPosts, deletePost } from "./services/PostService.js";
+import { registerUser, loginUser, getUsers, deleteUser } from "./src/services/UserService.js";
+import { createPost, getPosts, getUserPosts, deletePost } from "./src/services/PostService.js";
 
 const app = express();
 

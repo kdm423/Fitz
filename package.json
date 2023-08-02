@@ -1,0 +1,19 @@
+{
+  "name": "fitz",
+  "version": "1.0.0",
+  "description": "&nbsp;&nbsp;&nbsp;&nbsp; This project is an Instagram-styled web application with a focus on fashion and style trends. Users will be able to create posts that feature their outfits, along with links to where each clothing product was purchased. Other features include the ability to follow accounts, like, and comment on posts. Competitions are held for users to win prizes! This web application aims to connect fashion enthusiasts in order to discover new styles.",
+  "main": "index.js",
+  "scripts": {
+    "start-frontend": "cd Frontend Files && npm start",
+    "start-backend": "cd Backend Files && npm start",
+    "start": "concurrently \"npm run start-frontend\" \"npm run start-backend\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "backend-files",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^7.4.1",
+    "uuid": "^9.0.0",
+    "validator": "^13.9.0"
+  }
+}
