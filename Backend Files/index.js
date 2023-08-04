@@ -1,9 +1,9 @@
-import express from "express";
+import express, { response } from "express";
 import cors from "cors";
 import "./src/connect.js";
 import { v4 } from "uuid";
 import { registerUser, loginUser, getUsers, deleteUser } from "./src/services/UserService.js";
-import { createPost, getPosts, getUserPosts, deletePost } from "./src/services/PostService.js";
+import { createPost, getPosts, getUserPosts, deletePost, addComment } from "./src/services/PostService.js";
 
 const app = express();
 
@@ -129,7 +129,7 @@ app.get("/getUserPosts", async (request, response) => {
 });
 
 // Hard delete of post --- currently just for testing, might implement in Phase 2
-app.delete("/deletePost", async function(request, response){
+app.delete("/deletePost", async function(request, response) {
     try {
         const { id } = request.body;
 
@@ -142,6 +142,24 @@ app.delete("/deletePost", async function(request, response){
         response
             .status(500)
             .send({message: "error occured while deleting post"})
+    }
+});
+
+//  Add a comment
+// Updates post to include new comment
+app.put("/addComment", async function (request, response) {
+    try {
+        const { id, comments, username } = request.body;
+
+        const updatedPost = await addComment(id, comments, username);
+
+        response
+            .status(200)
+            .send({message: "comment successfully added", data: updatedPost})
+    } catch (error) {
+        response
+            .status(500)
+            .send({message: "error occured while adding comment"})
     }
 });
 
