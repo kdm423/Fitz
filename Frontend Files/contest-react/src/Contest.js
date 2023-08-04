@@ -1,5 +1,6 @@
 //IMPORTS
 import React,{Component} from 'react';
+import { Anchor } from 'antd';
 
 // CSS Fonts Import
 <style>
@@ -19,14 +20,22 @@ class Contest extends Component {
     // Preview contests???
     // Showcase contests that are closing soon (no more entries)?
     // Showcase contests that have voting closing soon (no more votes on entries)??
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            contests: [],
+            id: 0
+        }
+    }
 
     // render
     render() {
         <div>
             <h1> Fitz Contests</h1>
-            <h2> Vote on your fave styles or enter your own looks!</h2>
-            <div> Vote! </div>
-            <div> Compete!</div>
+            <div> Vote on your fave styles! </div>
+            <div> Enter your own looks! </div>
+            <div> Create your own contest! </div>
         </div>
     }
 
