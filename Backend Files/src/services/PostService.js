@@ -35,7 +35,7 @@ import { PostModel } from "../models/PostModel.js";
     const getUserPosts = async (usernameKey) => {
         const data = await PostModel.find({ username : usernameKey });
 
-        console.log("data", data);
+        //console.log("data", data);
 
         return data;
     }
@@ -57,4 +57,23 @@ import { PostModel } from "../models/PostModel.js";
         }
     };
 
-export { createPost, getPosts, getUserPosts, deletePost };
+    // Adds comment by updating post
+    const addComment = async (id, newComment, username) => {
+        try {
+            const post = await PostModel.findOne({ _id: id });
+        
+            if(!post) {
+                throw new Error("post not found");
+            }
+            
+            post.comments.push({ text: newComment, username });
+
+            const updatedPost = await post.save();
+            
+            return updatedPost;
+        } catch (error) {
+            throw new Error("error adding comment: " + error.message);
+        }
+    };
+
+export { createPost, getPosts, getUserPosts, deletePost, addComment };

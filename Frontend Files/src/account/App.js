@@ -10,8 +10,6 @@ function App() {
     const handleLogin  = ({ username }) => {
         setIsLoggedIn(true);
         setUsername(username);
-        
-    console.log("USERNAME: ", username);
     };
 
     const handleLogout = () => {
