@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Login from "./Login.js";
 import UserProfile from './UserProfile.js';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import FeedPage from './FeedPage.js';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,19 +18,39 @@ function App() {
         setUsername(null);
     };
 
-  return (
-    <Router>
-      <div>
-        {isLoggedIn ? (
-          <UserProfile username={username} onLogout={handleLogout} />
-        ) : (
-          <Routes>
-            <Route path="/" element={<Login onLogin={handleLogin} />} />
-          </Routes>
-        )}
-      </div>
-    </Router>
-  );
-}
+    return (
+        <Router>
+            <div>
+                {isLoggedIn ? (
+                <>
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to="/">User Profile</Link>
+                        </li>
+                        <li>
+                            <Link to="/feed">Go to Feed</Link>
+                        </li>
+                    </ul>
+                </nav>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                    <UserProfile username={username} onLogout={handleLogout} />
+                        }
+                    />
+                    <Route path="/feed" element={<FeedPage username={username} onLogout={handleLogout} />} />
+                </Routes>
+                </>
+                ) : (
+                <Routes>
+                    <Route path="/" element={<Login onLogin={handleLogin} />} />
+                </Routes>
+                )}
+            </div>
+        </Router>
+        );
+    }
 
 export default App;

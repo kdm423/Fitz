@@ -4,12 +4,30 @@ import "./src/connect.js";
 import { v4 } from "uuid";
 import { registerUser, loginUser, getUsers, deleteUser } from "./src/services/UserService.js";
 import { createPost, getPosts, getUserPosts, deletePost, addComment } from "./src/services/PostService.js";
+import cookieParser from "cookie-parser";
+import session from "express-session";
 
 const app = express();
 
 app.use(express.json());
 
 app.use(cors());
+
+app.use(cookieParser());
+
+// Middleware for session management
+app.use(
+    session({
+      secret: "secret-key",
+      resave: false,
+      saveUninitialized: true,
+      genid: () => v4(), // Generate unique session IDs
+      cookie: {
+        httpOnly: true,
+        maxAge: 10 * 60 * 1000, // Session expiration time (10 minutes)
+      },
+    })
+  );
 
 // Register new user
 app.post('/register', async (request, response) => {
@@ -29,21 +47,21 @@ app.post('/register', async (request, response) => {
 });
 
 // Login existing user
-app.post('/login', async (request, response)  => {
+app.post('/login', async (request, response) => {
     try {
-        let { username, password } = request.body;
-
-        const user = await loginUser(username, password);
-
-        response
-            .status(200)
-            .send({ message: "Login successful", user });
+      let { username, password } = request.body;
+  
+      const user = await loginUser(username, password, request);
+  
+      response
+        .status(200)
+        .send({ message: "Login successful", user });
     } catch (error) {
-        response
-            .status(401)
-            .send({ message: "Invalid  credentials" });
+      response
+        .status(401)
+        .send({ message: "Invalid credentials" });
     }
-});
+  });
 
 // Get all users information --- testing purposes
 app.get("/getAllUsers", async function (request, response){
