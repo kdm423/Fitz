@@ -12,25 +12,28 @@ const registerUser = async (email, username, password) => {
     console.log("register user", result);
 };
 
-const loginUser = async (username, password) => {
+const loginUser = async (username, password, req) => { // Pass 'req' to access session
     try {
-        const user = await UserModel.findOne({ username: username });
-
-        // Check if user exists
-        if(!username)  {
-            throw new Error("user not found");
-        }
-
-        // Check if entered password is correct
-        if(user.password  !== password) {
-            throw new Error("password incorrect");
-        } 
-
-        return user;
+      const user = await UserModel.findOne({ username: username });
+  
+      // Check if user exists
+      if (!user) {
+        throw new Error("user not found");
+      }
+  
+      // Check if entered password is correct
+      if (user.password !== password) {
+        throw new Error("password incorrect");
+      }
+  
+      // Store user data in the session
+      req.session.user = user;
+  
+      return user;
     } catch (error) {
-            throw error;
-        }
-    };
+      throw error;
+    }
+  };
 
     // Gets all users from DB
     const getUsers = async () => {

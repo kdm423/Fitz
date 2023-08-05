@@ -80,13 +80,15 @@ const UserProfile = ({ username, onLogout }) => {
 
     return (
         <div>
+            <button onClick={handleLogout}>Logout</button>
+
+            <br />
+
             Hello {username}
 
             <br />
 
             {showButton && <button onClick={handleButtonClick}>Create New Post</button>}
-
-            <button onClick={handleLogout}>Logout</button>
 
             {showForm && (
                 <div>
@@ -109,32 +111,32 @@ const UserProfile = ({ username, onLogout }) => {
             {userPosts.length > 0 && (
                 <div>
                     <h2>User Posts</h2>
-                        <ul>
-                            {userPosts.map((post) => (
-                                <li key={post._id}>
-                                <p>{post.username}</p>
-                                <img src={post.image} alt="Post" />
-                                <p>{post.caption}</p>
-                                {post.comments && post.comments.length > 0 && (
-                                <ul>
-                                    {post.comments.map((postComment, index) => (
-                                        <li key={index}>
-                                            {postComment.username}:
-                                            {postComment.text}
-                                        </li>
-                                    ))}
-                                </ul>
-                                )}
-                                <input
-                                    type="text"
-                                    placeholder="..."
-                                    value={comment}
-                                    onChange={(event => setComment(event.target.value))}
-                                />
-                                <button onClick={() => handleCommentAdd(post._id, comment)}>Add Comment</button>
-                                </li>
-                            ))}
-                        </ul>
+                    <ul>
+                        {userPosts.map((post) => (
+                            <li key={post._id}>
+                            <p>{post.username}</p>
+                            <img src={post.image} alt="Post" />
+                            <p>{post.caption}</p>
+                            {post.comments && post.comments.length > 0 && (
+                            <ul>
+                                {post.comments.map((postComment, index) => (
+                                    <li key={index}>
+                                        {postComment.username}:
+                                        {postComment.text}
+                                    </li>
+                                ))}
+                            </ul>
+                            )}
+                            <input
+                                type="text"
+                                placeholder="..."
+                                value={comment}
+                                onChange={(event => setComment(event.target.value))}
+                            />
+                            <button onClick={() => handleCommentAdd(post._id, comment)}>Add Comment</button>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             )}
         </div>

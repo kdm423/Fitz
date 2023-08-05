@@ -9,6 +9,7 @@ const userSchema = mongoose.Schema({
         validate: (value) => {
             return validator.isEmail(value);
         },
+        token: String,
     },
     username: {
         type: String,
