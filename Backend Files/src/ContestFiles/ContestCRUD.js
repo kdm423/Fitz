@@ -1,6 +1,7 @@
 // IMPORTS
 import express from "express";
 import { v4 } from uuid;
+import { createContest, getContests, getContests, deleteContest } from "../services/ContestService";
 
 const app = express();
 
@@ -18,19 +19,14 @@ o   name, start date, contestActivity
 o   Request body - {“uniqueContestID”: “id”, “contestName”: “contest name”, “startDate”: date, “endDate”: date, “description”: “contest description”, “entries”: []}
 o   Response: status – 201, message: “Contest successfully created”
 */
-app.post('/createContest', function(request,response){
-    let {contestName} = request.body;
+app.post('/createContest/:contestName/:startDate/:contestActivity', function(request,response){
+    let {contestName} = request.body.contestName;
+    let {startDate} = request.body.startDate;
+    let {contestActivity} = request.body.contestActivity;
 
-    let id = v4();
+    let uniqueID = v4();
 
-    let payload = {
-        contestID: id,
-        contestName:contestName ,
-        startDate: Date.now(),
-        contestActivity: 'Active'
-    }
-
-    data.push(payload);
+    let payload = createContest( uniqueID, contestName, startDate, contestActivity, [] );
 
     response
         .status(201)
@@ -50,7 +46,7 @@ o   Response: status – 200, data
 function getAllContestsEndpoint(request, response){
     response
         .status(200)
-        .send(data);
+        .send(getContests());
 }
 
 app.get("/getAllContests", getAllContestsEndpoint);
@@ -64,10 +60,12 @@ o   name
 o   PUT
 o   Response: status - 200, message: "Contest successfully updated"
 */
-app.put("/updateContest/:id", function(request,response){
+app.put("/updateContest/:id/:contestActivity", function(request,response){
     let {id} = request.query;
 
     let {contestActivity} = request.body; 
+
+    let data = getContests();
 
     for(let i = 0; i<data.length;i++){
 
@@ -90,8 +88,14 @@ o   DELETE
 o   Response: status - 200, message: "Contest successfully"
 */
 app.delete("/deleteContest/:id", function(request, response){
-    let {id} = request.query;
-})
+    let {id} = request.body;
+
+    deleteContest(id);
+
+    response
+        .status(200) 
+        .send({message:"Contest activity deleted"})
+});
 
 
 let PORT = 1234;
@@ -99,3 +103,4 @@ let PORT = 1234;
 app.listen(PORT, function () {
     console.log("Listening to port ", PORT);
 });
+

@@ -2,7 +2,7 @@
   "name": "contestpackage",
   "version": "1.0.0",
   "description": "Packages required for Contest Function of Fitz Web App",
-  "main": "ContestIndex.js",
+  "main": "../index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
