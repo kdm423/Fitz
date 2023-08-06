@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Login from "./Login.js";
 import UserProfile from './UserProfile.js';
 import FeedPage from './FeedPage.js';
+import Contest from './Contest.js';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 function App() {
@@ -31,6 +32,9 @@ function App() {
                         <li>
                             <Link to="/feed">Go to Feed</Link>
                         </li>
+                        <li>
+                            <Link to="/contests">Contests</Link>
+                        </li>
                     </ul>
                 </nav>
                 <Routes>
@@ -41,6 +45,7 @@ function App() {
                         }
                     />
                     <Route path="/feed" element={<FeedPage username={username} onLogout={handleLogout} />} />
+                    <Route path="/contests" element={<Contest username={username} onLogout={handleLogout} />} />
                 </Routes>
                 </>
                 ) : (

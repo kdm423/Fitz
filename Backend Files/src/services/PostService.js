@@ -38,7 +38,18 @@ import { PostModel } from "../models/PostModel.js";
         //console.log("data", data);
 
         return data;
-    }
+    };
+
+    
+    // Get specific post by ID
+    const getPostById = async (postID) => {
+        try {
+          const post = await PostModel.findOne({ _id: postID });
+          return post;
+        } catch (error) {
+          throw new Error("Error fetching post data: " + error.message);
+        }
+      };
 
     // Hard delete from DB
     const deletePost = async (id) => {
@@ -76,4 +87,4 @@ import { PostModel } from "../models/PostModel.js";
         }
     };
 
-export { createPost, getPosts, getUserPosts, deletePost, addComment };
+export { createPost, getPosts, getUserPosts, getPostById, deletePost, addComment };

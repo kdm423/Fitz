@@ -19,7 +19,7 @@ o   name, start date, contestActivity
 o   Request body - {“uniqueContestID”: “id”, “contestName”: “contest name”, “startDate”: date, “endDate”: date, “description”: “contest description”, “entries”: []}
 o   Response: status – 201, message: “Contest successfully created”
 */
-app.post('/createContest/:contestName/:startDate/:contestActivity', function(request,response){
+app.post('/createContest/', function(request,response){
     let {contestName} = request.body.contestName;
     let {startDate} = request.body.startDate;
     let {contestActivity} = request.body.contestActivity;
