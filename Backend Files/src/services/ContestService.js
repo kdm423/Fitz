@@ -1,18 +1,17 @@
-import { ContestModel } from "..models/ContestModel.js";
+import { ContestModel } from "../models/ContestModel.js"
+import { PostModel } from "../models/PostModel.js";
 
 // creates a new contest & adds it to the DB
-const createContest = async( contestID, contestName, startDate,
-                                     contestActivity, entryIDList ) => {
+const createContest = async( contestName, contestActivity ) => {
   try{
     let newContest = new ContestModel({
-        contestID: contestID,
         contestName: contestName,
-        startDate: startDate,
+        startDate: Date.now(),
         contestActivity: contestActivity,
-        entryIDList: entryIDList,
+        entryIDList: [],
     })
 
-    const result = await postContest.save();
+    const result = await newContest.save();
 
     console.log("contest creation in contest service file: ", result);
 
@@ -36,8 +35,6 @@ const getContests = async () => {
     const getEntries = async (contestID) => {
         const data = await ContestModel.find(entryIDList);
 
-        //console.log("data", data);
-
         return data;
     }
 
@@ -58,5 +55,23 @@ const getContests = async () => {
         }
     };
 
+        // Adds post to contest by updating contest
+        const addPost = async (contestID, postID) => {
+            try {
+                const contest = await ContestModel.findOne({ _id: contestID });
+            
+                if(!contest) {
+                    throw new Error("contest not found");
+                }
+                
+                contest.entryIDList.push({ postID });
+    
+                const updatedList = await contest.save();
+                
+                return updatedList;
+            } catch (error) {
+                throw new Error("error adding post to contest: " + error.message);
+            }
+        };
 
-export { createContest, getContests, getContests, deleteContest};
+export { createContest, getContests, deleteContest, addPost};

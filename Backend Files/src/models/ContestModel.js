@@ -1,11 +1,10 @@
 import mongoose from "mongoose";
 
 const contestSchema = mongoose.Schema({
-    contestID: int,
     contestName: String,
     startDate: Date,
     contestActivity: String,
-    entryIDList: Array
+    entryIDList: []
 });
 
 const ContestModel = mongoose.model("Contests", contestSchema);
