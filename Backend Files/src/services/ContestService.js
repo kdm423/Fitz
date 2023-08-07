@@ -1,5 +1,4 @@
 import { ContestModel } from "../models/ContestModel.js"
-import { PostModel } from "../models/PostModel.js";
 
 // creates a new contest & adds it to the DB
 const createContest = async( contestName, contestActivity ) => {
@@ -31,47 +30,40 @@ const getContests = async () => {
     return data;
 };
 
-    // Gets post created by a specific user from DB
-    const getEntries = async (contestID) => {
-        const data = await ContestModel.find(entryIDList);
-
-        return data;
-    }
-
-    // Hard delete from DB
-    const deleteContest = async (id) => {
-        try {
-            const post = await ContestModel.findOne({ _id: id });
+// Hard delete from DB
+const deleteContest = async (id) => {
+    try {
+        const post = await ContestModel.findOne({ _id: id });
     
-            if(!post) {
-                throw new Error("Contest not found");
-            }
-        
-            await ContestModel.deleteOne({ _id: id });
-        
-            return { message: "Contest successfully deleted" };
-        } catch (error) {
-            throw new Error("error deleting Contest: " + error.message);
+        if(!post) {
+            throw new Error("Contest not found");
         }
-    };
+        
+        await ContestModel.deleteOne({ _id: id });
+        
+        return { message: "Contest successfully deleted" };
+    } catch (error) {
+        throw new Error("error deleting Contest: " + error.message);
+    }
+};
 
         // Adds post to contest by updating contest
-        const addPost = async (contestID, postID) => {
-            try {
-                const contest = await ContestModel.findOne({ _id: contestID });
+const addPost = async (contestID, postID) => {
+    try {
+        const contest = await ContestModel.findOne({ _id: contestID });
             
-                if(!contest) {
-                    throw new Error("contest not found");
-                }
+        if(!contest) {
+            throw new Error("contest not found");
+        }
                 
-                contest.entryIDList.push({ postID });
+        contest.entryIDList.push({ postID });
     
-                const updatedList = await contest.save();
+        const updatedList = await contest.save();
                 
-                return updatedList;
-            } catch (error) {
-                throw new Error("error adding post to contest: " + error.message);
-            }
-        };
+        return updatedList;
+    } catch (error) {
+       throw new Error("error adding post to contest: " + error.message);
+    }
+};
 
 export { createContest, getContests, deleteContest, addPost};
