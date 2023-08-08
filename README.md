@@ -11,7 +11,12 @@
 ## Phase 2
 &nbsp;&nbsp;&nbsp;&nbsp; The second developement consisted of the ability to actually add comments to posts. Comments now show up under each post along with the username of who commented it. As far as contests go, users can now create contests and view them, along with which posts have been entered in them. While there is some backend code that allows users to enter their posts into the contests, unfortunately, we found ourselves lacking the time to implement this feature on the frontend. However, as an added bonus, we decided to create a feed page, that fetches all posts from every user so that there is still a viable form of interaction until the contest system can be polished off. The navigation of our application has been cleaned up with a link for User Profile, Feed Page, and Contests constantly being displayed at the top of the website along with a logout button. 
 
-
+## Running the Application
+&nbsp;&nbsp;&nbsp;&nbsp; To start this project:
+* Download the code on your local machine
+* Ensure all dependencies are downloaded and the latest versions are installed
+* Run "npm start" in the root folder (Fitz) in order to run the entire application
+* The frontend and backend can be started separately with "npm run start-frontend" and "npm run start-backend", respectively.
 
 ## Team Information
 * [Wesley Blair](https://github.com/wvblair5)  
